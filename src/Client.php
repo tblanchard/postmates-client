@@ -208,13 +208,24 @@ class Client extends \GuzzleHttp\Client
     {
         try {
             $oRq = $this->request($type, $endpoint, $params);
-            $oRsp = $this->send($oRq);
 
-            return Factory::create($oRsp->json());
+            return $oRq->json();
         } catch(\GuzzleHttp\Exception\RequestException $e) {
-            $this->addException($e);
+            if($e->hasResponse())
+            {
+                return $e->getResponse()->json();
+            }
+            return [
+                'kind' => 'error',
+                'code' => 'unknown',
+                'message' => $e->getMessage();
+                    ];
         } catch(\Exception $e) {
-            $this->addException($e);
+            return [
+                'kind' => 'error',
+                'code' => 'unknown',
+                'message' => $e->getMessage();
+                    ];
         }
     }
 
