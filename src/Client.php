@@ -218,13 +218,13 @@ class Client extends \GuzzleHttp\Client
             return [
                 'kind' => 'error',
                 'code' => 'unknown',
-                'message' => $e->getMessage();
+                'message' => $e->getMessage()
                     ];
         } catch(\Exception $e) {
             return [
                 'kind' => 'error',
                 'code' => 'unknown',
-                'message' => $e->getMessage();
+                'message' => $e->getMessage()
                     ];
         }
     }
