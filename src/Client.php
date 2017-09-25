@@ -207,13 +207,12 @@ class Client extends \GuzzleHttp\Client
     private function _request($type, $endpoint, $params = [])
     {
         try {
-            $oRq = $this->request($type, $endpoint, $params);
-
-            return $oRq->json();
+            $response = $this->request($type, $endpoint, $params);
+            return json_decode($response->getBody(), true);
         } catch(\GuzzleHttp\Exception\RequestException $e) {
             if($e->hasResponse())
             {
-                return $e->getResponse()->json();
+                json_decode($e->getResponse()->getBody(), true);
             }
             return [
                 'kind' => 'error',
