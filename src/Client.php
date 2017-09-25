@@ -212,7 +212,7 @@ class Client extends \GuzzleHttp\Client
         } catch(\GuzzleHttp\Exception\RequestException $e) {
             if($e->hasResponse())
             {
-                json_decode($e->getResponse()->getBody(), true);
+                return json_decode($e->getResponse()->getBody(), true);
             }
             return [
                 'kind' => 'error',
